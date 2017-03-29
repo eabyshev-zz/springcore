@@ -11,23 +11,23 @@ public class App {
 
     private Client client;
     private EventLogger eventLogger;
-    private Event event;
     private EventLogger fileEventLogger;
     private EventLogger cacheFileEventLogger;
+    private static ConfigurableApplicationContext context;
 
     public App() {
     }
 
-    public App(Client client, EventLogger eventLogger, Event event, EventLogger fileEventLogger,
+    public App(Client client, EventLogger eventLogger, EventLogger fileEventLogger,
                EventLogger cacheFileEventLogger) {
         this.client = client;
         this.eventLogger = eventLogger;
-        this.event = event;
         this.fileEventLogger = fileEventLogger;
         this.cacheFileEventLogger = cacheFileEventLogger;
     }
 
     private void logEvent(String msg) {
+        Event event = getEvent();
         String message = msg.replace(client.getId(), client.getFullName());
         event.setMsg(message);
         eventLogger.logEvent(event);
@@ -36,27 +36,25 @@ public class App {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        context = new ClassPathXmlApplicationContext("spring.xml");
 
-        final App app = (App) ctx.getBean("app");
-//        Thread.sleep(1000);
-        final App app2 = (App) ctx.getBean("app");
-//        Thread.sleep(1000);
-        final App app3 = (App) ctx.getBean("app");
-//        Thread.sleep(1000);
-        final App app4 = (App) ctx.getBean("app");
-//        Thread.sleep(1000);
-        final App app5 = (App) ctx.getBean("app");
+        final App app = (App) context.getBean("app");
 
         app.logEvent("Some event for 1");
         Thread.sleep(1000);
-        app2.logEvent("Some event for 2");
+        app.logEvent("Some event for 2");
         Thread.sleep(1000);
-        app3.logEvent("Some event for 3");
+        app.logEvent("Some event for 3");
         Thread.sleep(1000);
-        app4.logEvent("Some event for 4");
+        app.logEvent("Some event for 4");
         Thread.sleep(1000);
-        app5.logEvent("Some event for 5");
-        ctx.close();
+        app.logEvent("Some event for 5");
+        Thread.sleep(1000);
+        app.logEvent("Some event for 6");
+        context.close();
+    }
+
+    public Event getEvent() {
+        return (Event) context.getBean("event");
     }
 }

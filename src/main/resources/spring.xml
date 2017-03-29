@@ -12,12 +12,11 @@
         <constructor-arg value="John Smith"/>
     </bean>
 
-    <bean id="app" class="com.epam.core.after.injection.App" scope="prototype">
+    <bean id="app" class="com.epam.core.after.injection.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="eventLogger"/>
         <constructor-arg ref="fileEventLogger"/>
         <constructor-arg ref="cacheFileEventLogger"/>
-        <constructor-arg ref="event"/>
     </bean>
 
     <bean id="event" class="com.epam.core.after.injection.Event" scope="prototype">
