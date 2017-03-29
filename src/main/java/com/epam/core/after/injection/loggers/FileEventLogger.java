@@ -1,6 +1,6 @@
-package com.epam.core.after.injection;
+package com.epam.core.after.injection.loggers;
 
-import org.apache.commons.io.FileSystemUtils;
+import com.epam.core.after.injection.Event;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -27,5 +27,9 @@ public class FileEventLogger implements EventLogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void destroy() {
+        // do some file checks if needed
     }
 }

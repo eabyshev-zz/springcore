@@ -1,5 +1,6 @@
-package com.epam.core.after.injection;
+package com.epam.core.after.injection.loggers;
 
+import com.epam.core.after.injection.Event;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -27,6 +28,7 @@ public class CacheFileEventLogger extends FileEventLogger {
         super.init();
     }
 
+    @Override
     public void destroy() {
         if (!cache.isEmpty()) {
             writeEventsFromCache();
