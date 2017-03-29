@@ -1,1 +1,1 @@
-"# springcore" 
+Spring Core demo app
