@@ -1,0 +1,12 @@
+target
+*.swp
+*.iml
+*.log
+.idea
+*.idea
+*.classes
+*.o
+*.mk
+*.a
+*.deb
+*~
