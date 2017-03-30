@@ -4,6 +4,7 @@ import com.epam.core.after.injection.loggers.EventLogger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.awt.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,6 +18,9 @@ public class App {
     private EventLogger cacheFileEventLogger;
     private Map<EventType, EventLogger> loggers;
     private static ConfigurableApplicationContext context;
+
+    // inject const
+    private String constanta;
 
     // inject property
     private String test;
@@ -57,7 +61,9 @@ public class App {
         Thread.sleep(1000);
         app.logEvent("Some event for 5", EventType.ERROR);
         Thread.sleep(1000);
-//        app.logEvent("Some event for 6", Event.Type.OTHER);
+
+        // print const
+        System.out.println(app.constanta);
 
         context.close();
     }
@@ -68,5 +74,9 @@ public class App {
 
     public void setTest(String test) {
         this.test = test;
+    }
+
+    public void setConstanta(String  constanta) {
+        this.constanta = constanta;
     }
 }

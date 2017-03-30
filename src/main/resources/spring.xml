@@ -24,28 +24,26 @@
     </bean>
 
     <!---->
-    <util:map
+    <util:map id="loggerMap">
+        <entry key="INFO"
+               value-ref="consoleEventLogger"/>
+        <entry key="ERROR"
+               value-ref="combinedEventLogger"/>
+    </util:map>
 
 
-    <bean id="client" class="com.epam.core.after.injection.Client">
+    <bean id="client" class="com.epam.core.after.injection.Client"
+          p:greeting="${greeting}">
         <constructor-arg value="${id}"/>
         <constructor-arg value="${name}"/>
-        <property name="greeting" value="${greeting}"/>
     </bean>
 
-    <bean id="app" class="com.epam.core.after.injection.App">
-        <constructor-arg ref="client"/>
+    <bean id="app" class="com.epam.core.after.injection.App" c:client-ref="client">
+        <!--<constructor-arg ref="client"/>-->
         <constructor-arg ref="cacheFileEventLogger"/>
-        <constructor-arg>
-            <map>
-                <entry key="INFO"
-                       value-ref="consoleEventLogger"/>
-                <entry key="ERROR"
-                       value-ref="combinedEventLogger"/>
-            </map>
-        </constructor-arg>
+        <constructor-arg ref="loggerMap"/>
 
-        <property name="const">
+        <property name="constanta">
             <util:constant static-field="java.lang.Math.PI"/>
         </property>
     </bean>
